@@ -1,7 +1,13 @@
 {
     "name": "live627/phpunit-garbage-collector",
     "description": "Reset properties to save memory after each test",
-    "keywords": ["phpunit", "memory", "property", "free", "fast"],
+    "keywords": [
+        "phpunit",
+        "memory",
+        "property",
+        "free",
+        "fast"
+    ],
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
@@ -9,9 +15,12 @@
         "phpunit/phpunit": ">=8.0"
     },
     "autoload": {
-        "psr-4": { "live627\\PHPUnitGarbageCollector\\": "src" }
+        "psr-4": {
+            "live627\\PHPUnitGarbageCollector\\": "src"
+        }
     },
     "require-dev": {
         "scrutinizer/ocular": "^1.9"
-    }
+    },
+    "version": "1.0.0"
 }
