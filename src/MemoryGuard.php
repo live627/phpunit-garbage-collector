@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @package   phpunit-garbage-collector
- * @version   2.0.2
+ * @version   1.0.0
  * @author    John Rayes <live627@gmail.com>
  * @copyright Copyright (c) 2022, John Rayes
  * @license   http://opensource.org/licenses/MIT MIT
@@ -21,7 +21,6 @@ class MemoryGuard implements TestListener
 {
 	use TestListenerDefaultImplementation;
 
-	private const PHPUNIT_PROPERTY_PREFIX = 'PHPUnit';
 	private IgnoreTestPolicy $ignorePolicy;
 
 	public function __construct(IgnoreTestPolicy $ignorePolicy = null)
@@ -42,7 +41,7 @@ class MemoryGuard implements TestListener
 					continue;
 
 				unset($test->{$prop->getName()});
-		}
+			}
 	}
 }
 
