@@ -36,7 +36,8 @@ class MemoryGuard implements TestListener
 		if ($this->ignorePolicy->shouldIgnore($testReflection))
 			return;
 
-			foreach ($testReflection->getProperties() as $prop) {
+			foreach ($testReflection->getProperties() as $prop)
+			{
 				if ($prop->isStatic() || strpos($prop->getDeclaringClass()->getName(), 'PHPUnit\\') === 0)
 					continue;
 
