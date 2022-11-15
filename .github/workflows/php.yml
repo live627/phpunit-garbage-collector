@@ -12,7 +12,7 @@ jobs:
     env:
       XDEBUG_MODE: coverage
     steps:
-    - uses: actions/checkout@@v3
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Cache Composer packages
