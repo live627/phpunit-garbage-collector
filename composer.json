@@ -1,23 +1,14 @@
 {
-    "name": "mybuilder/phpunit-accelerator",
-    "description": "PHPUnit accelerator",
-    "keywords": ["phpunit", "accelerator", "memory", "property", "free", "fast"],
+    "name": "live627/phpunit-garbage-collector",
+    "description": "Reset properties to save memory after each test",
+    "keywords": ["phpunit", "memory", "property", "free", "fast"],
     "license": "MIT",
     "minimum-stability": "stable",
-    "authors": [
-        {
-            "name": "Keyvan Akbary",
-            "email": "keyvan@mybuilder.com"
-        }
-    ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "phpunit/phpunit": ">=8.0"
     },
     "autoload": {
-        "psr-4": { "MyBuilder\\PhpunitAccelerator\\": "src" }
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": { "live627\\PHPUnitGarbageCollector\\": "src" }
     }
 }

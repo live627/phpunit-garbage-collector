@@ -1,11 +1,10 @@
 <?php
 
-namespace MyBuilder\PhpunitAccelerator;
+namespace live627\PHPUnitGarbageCollector;
+
+use ReflectionObject;
 
 interface IgnoreTestPolicy
 {
-    /**
-     * @return boolean
-     */
-    public function shouldIgnore(\ReflectionObject $testReflection);
+	public function shouldIgnore(ReflectionObject $testReflection): bool;
 }

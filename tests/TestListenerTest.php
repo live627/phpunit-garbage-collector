@@ -1,82 +1,59 @@
 <?php
 
-use MyBuilder\PhpunitAccelerator\TestListener;
-use MyBuilder\PhpunitAccelerator\IgnoreTestPolicy;
+declare(strict_types=1);
 
-class TestListenerTest extends \PHPUnit\Framework\TestCase
+/**
+ * @package   phpunit-garbage-collector
+ * @version   2.0.2
+ * @author    John Rayes <live627@gmail.com>
+ * @copyright Copyright (c) 2022, John Rayes
+ * @license   http://opensource.org/licenses/MIT MIT
+ */
+
+use live627\PHPUnitGarbageCollector\{IgnoreTestPolicy, MemoryGuard};
+use PHPUnit\Framework\TestCase;
+
+class MemoryGuardTest extends TestCase
 {
-    private $dummyTest;
+	private DummyTest $dummyTest;
 
-    protected function setUp(): void
-    {
-        $this->dummyTest = new DummyTest();
-    }
+	protected function setUp(): void
+	{
+		$this->dummyTest = new DummyTest;
+	}
 
-    /**
-     * @test
-     */
-    public function shouldFreeTestProperty()
-    {
-        $this->endTest(new TestListener());
+	public function testShouldFreeTestProperty(): void
+	{
+		$this->assertObjectHasAttribute('property', $this->dummyTest);
+		$this->endTest(new MemoryGuard);
 
-        $this->assertFreesTestProperty();
-    }
+		// assertObjectNotHasAttribute() seems to not work...
+		$this->assertFalse(isset($this->dummyTest->property));
+	}
 
-    private function endTest(TestListener $listener)
-    {
-        $listener->endTest($this->dummyTest, 0);
-    }
+	private function endTest(MemoryGuard $listener): void
+	{
+		$listener->endTest($this->dummyTest, 0);
+	}
 
-    private function assertFreesTestProperty()
-    {
-        $this->assertNull($this->dummyTest->property);
-    }
+	public function testShouldNotFreeTestPropertyWithIgnoreAlwaysPolicy(): void
+	{
+		$this->endTest(new MemoryGuard(new AlwaysIgnoreTestPolicy));
 
-    /**
-     * @test
-     */
-    public function shouldNotFreePhpUnitProperty()
-    {
-        $this->endTest(new TestListener());
-
-        $this->assertDoesNotFreePHPUnitProperty();
-    }
-
-    private function assertDoesNotFreePHPUnitProperty()
-    {
-        $this->assertNotNull($this->dummyTest->phpUnitProperty);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldNotFreeTestPropertyWithIgnoreAlwaysPolicy()
-    {
-        $this->endTest(new TestListener(new AlwaysIgnoreTestPolicy()));
-
-        $this->assertDoesNotFreeTestProperty();
-    }
-
-    private function assertDoesNotFreeTestProperty()
-    {
-        $this->assertNotNull($this->dummyTest->property);
-    }
+		$this->assertObjectHasAttribute('property', $this->dummyTest);
+		$this->assertNotNull($this->dummyTest->property);
+	}
 }
 
-class PHPUnit_Fake extends \PHPUnit\Framework\TestCase
+class DummyTest extends TestCase
 {
-    public $phpUnitProperty = 1;
-}
-
-class DummyTest extends \PHPUnit_Fake
-{
-    public $property = 1;
+	public $property = 1;
 }
 
 class AlwaysIgnoreTestPolicy implements IgnoreTestPolicy
 {
-    public function shouldIgnore(\ReflectionObject $testReflection)
-    {
-        return true;
-    }
+	public function shouldIgnore(\ReflectionObject $testReflection): bool
+	{
+		return true;
+	}
 }
