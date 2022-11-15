@@ -1,5 +1,9 @@
 # PHPUnit Garbage Collector
 
+[![Tests](https://github.com/live627/phpunit-garbage-collector/actions/workflows/php.yml/badge.svg)](https://github.com/live627/phpunit-garbage-collector/actions/workflows/php.yml)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/live627/phpunit-garbage-collector/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/live627/phpunit-garbage-collector/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/live627/phpunit-garbage-collector/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/live627/phpunit-garbage-collector/?branch=master)
+
 PHPUnit seems to waste a lot of memory because it instantiates a lot of objects before actually starting any test, meaning that the initial memory usage varies depending on the number of tests available.
 
 Say, for example, that you have `UserTest` with 1k test methods. This will unfortunately result in 1k UserTest class instances before any of the tests are actually run. This is actually by design. In order to determine the number of tests, PHPUnit runs `@dataProvider` methods before actually running the tests (and the setUp method).
