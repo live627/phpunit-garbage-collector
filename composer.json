@@ -10,5 +10,8 @@
     },
     "autoload": {
         "psr-4": { "live627\\PHPUnitGarbageCollector\\": "src" }
+    },
+    "require-dev": {
+        "scrutinizer/ocular": "^1.9"
     }
 }
