@@ -1,7 +1,7 @@
 ---
 name: 🐞 Bug Report
 about: Something is broken?
-labels: type/bug
+labels: bug
 ---
 
 <!--
